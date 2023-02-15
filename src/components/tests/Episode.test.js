@@ -3,11 +3,43 @@ import { render, fireEvent, screen } from "@testing-library/react";
 import "@testing-library/jest-dom/extend-expect";
 import Episode from "./../Episode";
 
-test("renders without error", () => {});
+const testEpisode={
+    id: 553946,
+    image: "https://static.tvmaze.com/uploads/images/medium_landscape/342/855786.jpg",
+    name: "Chapter One: The Vanishing of Will Byers",
+    number: 1,
+    season: 1,
+    summary: "a young boy disappears",
+    runtime: 49,
+}
 
-test("renders the summary test passed as prop", () => {});
+const newTestData={
+    id: 553946,
+    image: null,
+    name: "Chapter One: The Vanishing of Will Byers",
+    number: 1,
+    season: 1,
+    summary: "a young boy disappears",
+    runtime: 49,
+}
 
-test("renders default image when image is not defined", () => {});
+test("renders without error", () => {
+    render(<Episode episode={testEpisode}/>)
+});
+
+test("renders the summary test passed as prop", () => {
+    render(<Episode episode={testEpisode}/>);
+    const summary = screen.queryByText(/a young boy disappears/i);
+    expect(summary).toBeInTheDocument();
+    expect(summary).toBeTruthy();
+    expect(summary).toHaveTextContent('a young boy disappears')
+});
+
+test("renders default image when image is not defined", () => {
+    render(<Episode episode={newTestData}/>);
+    const image = screen.queryByAltText('https://i.ibb.co/2FsfXqM/stranger-things.png')
+    expect(image).toBeInTheDocument();
+});
 
 // ----- EXAMPLE EPISODE TEST OBJECT -----
 // const exampleEpisodeData = {
